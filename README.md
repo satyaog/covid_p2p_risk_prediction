@@ -37,15 +37,11 @@ unzip <data-file-name>.zip data
 
 ### Dependencies
 
-TODO @Nasim if you have made an env for this, please replace/update this section.
-To use the provided code data loaders, main loop, and model, you will need:
-* `pytorch` TODO VERSION
-* the usual ML stack (`numpy`...TODO)
-* `speedrun` which you can install via: 
+Install the dependencies with:
+
 ```
- pip install git+https://github.com/inferno-pytorch/speedrun.git@dev`. 
+pip install -r requirements.txt
 ```
-* For logging with wandb, you'll also need to `pip install wandb`. 
 
 ### Train the transformer model
 
