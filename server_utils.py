@@ -269,27 +269,25 @@ def proc_human(params, inference_engine=None, mp_backend=None, mp_threads=0):
     is_exposed, exposure_day = frozen.helper.exposure_array(human["infection_timestamp"], todays_date)
     is_recovered, recovery_day = frozen.helper.recovered_array(human["recovered_timestamp"], todays_date)
     candidate_encounters, exposure_encounter = frozen.helper.candidate_exposures(human, todays_date)
-    reported_symptoms = frozen.helper.symptoms_to_np(human["all_reported_symptoms"], params["all_possible_symptoms"])
-    true_symptoms = frozen.helper.symptoms_to_np(human["all_symptoms"], params["all_possible_symptoms"])
     daily_output = {
         "current_day": params["current_day"],
         "observed": {
-            "reported_symptoms": reported_symptoms,
+            "reported_symptoms": human["all_reported_symptoms"],
             "candidate_encounters": candidate_encounters,
             "test_results": frozen.helper.get_test_result_array(human["test_time"], todays_date),
-            "preexisting_conditions": frozen.helper.conditions_to_np(human["obs_preexisting_conditions"]),
+            "preexisting_conditions": human["obs_preexisting_conditions"],
             "age": frozen.helper.encode_age(human["obs_age"]),
             "sex": frozen.helper.encode_sex(human["obs_sex"])
         },
         "unobserved": {
-            "true_symptoms": true_symptoms,
+            "true_symptoms": human["all_symptoms"],
             "is_exposed": is_exposed,
             "exposure_encounter": exposure_encounter,
             "exposure_day": exposure_day,
             "is_recovered": is_recovered,
             "recovery_day": recovery_day,
             "infectiousness": np.array(human["infectiousnesses"]),
-            "true_preexisting_conditions": frozen.helper.conditions_to_np(human["preexisting_conditions"]),
+            "true_preexisting_conditions": human["preexisting_conditions"],
             "true_age": frozen.helper.encode_age(human["age"]),
             "true_sex": frozen.helper.encode_sex(human["sex"])
         }
